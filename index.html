@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.secContainer{
+    width: 100%;
+    height: auto;
+    background-color: rgb(11, 22, 36);
+}
+
+button{
+    color: black;
+    background-color: rgb(0, 191, 191);
+    border-radius: 5px;
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
+}
+
+button:focus{
+    background-color: brown;
+    color: azure;
+}
+    </style>
+</head>
+<body>
+      <div class="Container">
+        <div class="secContainer">
+            <button class="1" vlaue="1">1</button>
+            <button class="2" vlaue="2">2</button>
+            <button class="3" vlaue="3">3</button>
+            <button class="4" vlaue="4">4</button>
+            <button class="5" vlaue="5">5</button>
+            <button class="6" vlaue="6">6</button>
+            <button class="7" vlaue="7">7</button>
+            <button class="8" vlaue="8">8</button>
+            <button class="9" vlaue="9">9</button>
+            <button class="10" vlaue="10">10</button>
+        </div>
+
+        <div class="Content">
+            <ul>
+
+            </ul>
+        </div>
+    </div>
+    
+</body>
+</html>
+<script>
+    
+fetch("https://jsonplaceholder.typicode.com/users").then((result)=>{
+    var d=result.json();
+    return d;
+}).then((data) =>{
+    for (let i = 0; i < data.length; i++) {
+        $(`.${i+1}`).html(data[i].name);                                        
+    }
+    })
+
+
+$("button").click(function(){
+    var c=$(this).attr("class")
+    fetch(`https://jsonplaceholder.typicode.com/posts?userId=${c}`).then((postResult)=>{
+        var p=postResult.json();
+        return p;
+        }).then((data =>{
+            $("li").remove();
+            for (var i = 0; i < data.length; i++) {
+                $("ul").append(`<li>${data[i].body}</li>`);
+            }
+            
+    }))
+});
+
+
+
+</script>
